@@ -19,6 +19,7 @@ FetchContent_MakeAvailable(eigen)
 
 set(SOURCE_FILES
     src/main.cpp
+    src/Layer.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
