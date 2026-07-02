@@ -34,6 +34,7 @@ set(headers
   ${CMAKE_CURRENT_SOURCE_DIR}/include/unn/Softmax_And_Loss_CCE.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/unn/SGD.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/unn/AdaGrad.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/unn/RMSProp.hpp
 )
 
 set(sources
@@ -43,6 +44,7 @@ set(sources
   ${CMAKE_CURRENT_SOURCE_DIR}/src/ReLU.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/Softmax.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/AdaGrad.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/RMSProp.cpp
 )
 
 add_library(${PROJECT_NAME} ${headers} ${sources})
