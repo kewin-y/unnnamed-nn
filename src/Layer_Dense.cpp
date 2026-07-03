@@ -38,16 +38,35 @@ void Layer_Dense::backward(const Eigen::MatrixXd &d_next)
 const Eigen::MatrixXd &Layer_Dense::get_d_weights() const { return this->d_weights; }
 const Eigen::MatrixXd &Layer_Dense::get_d_biases() const { return this->d_biases; }
 
-bool Layer_Dense::velocity_initialized() const
+bool Layer_Dense::moment1_initialized() const
 {
-  // You could do *.size() != 0
-  return biases_velocity.size() == biases.size() && weights_velocity.rows() == weights.rows() &&
-         weights_velocity.cols() == weights.cols();
+  // You could do .size() != 0
+  return biases_moment1.size() == biases.size() && weights_moment1.rows() == weights.rows() &&
+         weights_moment1.cols() == weights.cols();
+}
+void Layer_Dense::init_moment1()
+{
+  const auto biases_size = this->biases.size();
+  const auto weights_rows = this->weights.rows();
+  const auto weights_cols = this->weights.cols();
+
+  this->weights_moment1 = Eigen::MatrixXd::Zero(weights_rows, weights_cols);
+  this->biases_moment1 = Eigen::VectorXd::Zero(biases_size);
 }
 
-bool Layer_Dense::cache_initialized() const
+bool Layer_Dense::moment2_initialized() const
 {
-  return biases_cache.size() == biases.size() && weights_velocity.rows() == weights.rows() &&
-         weights_cache.cols() == weights.cols();
+  return biases_moment2.size() == biases.size() && weights_moment2.rows() == weights.rows() &&
+         weights_moment2.cols() == weights.cols();
+}
+
+void Layer_Dense::init_moment2()
+{
+  const auto biases_size = this->biases.size();
+  const auto weights_rows = this->weights.rows();
+  const auto weights_cols = this->weights.cols();
+
+  this->weights_moment2 = Eigen::MatrixXd::Zero(weights_rows, weights_cols);
+  this->biases_moment2 = Eigen::VectorXd::Zero(biases_size);
 }
 } // namespace unn
