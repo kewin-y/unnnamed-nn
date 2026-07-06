@@ -35,6 +35,7 @@ set(headers
   ${CMAKE_CURRENT_SOURCE_DIR}/include/unn/SGD.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/unn/AdaGrad.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/unn/RMSProp.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/unn/Adam.hpp
 )
 
 set(sources
@@ -45,6 +46,7 @@ set(sources
   ${CMAKE_CURRENT_SOURCE_DIR}/src/Softmax.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/AdaGrad.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/RMSProp.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/Adam.cpp
 )
 
 add_library(${PROJECT_NAME} ${headers} ${sources})
