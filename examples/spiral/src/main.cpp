@@ -61,7 +61,7 @@ int main()
   unn::ReLU activation1{};
   unn::Layer_Dense dense2{64, 3};
   unn::Softmax_And_Loss_CCE loss_activation{};
-  unn::SGD SGD{1.0f, 1e-3, 0.9f};
+  unn::SGD optim{1.0f, 1e-3, 0.2f};
 
   constexpr int epochs = 10001;
 
@@ -94,10 +94,10 @@ int main()
     activation1.backward(dense2.get_d_input());
     dense1.backward(activation1.get_d_input());
 
-    SGD.pre_update();
-    SGD.update_params(dense1);
-    SGD.update_params(dense2);
-    SGD.post_update();
+    optim.pre_update();
+    optim.update_params(dense1);
+    optim.update_params(dense2);
+    optim.post_update();
   }
 
   return 0;

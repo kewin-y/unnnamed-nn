@@ -6,9 +6,9 @@ namespace unn
 {
 Layer_Dense::Layer_Dense(Eigen::Index n_inputs, Eigen::Index n_outputs)
 {
-  // Intialize with random weights
-  weights = Eigen::MatrixXd::Random(n_outputs, n_inputs);
-  biases = Eigen::VectorXd::Random(n_outputs);
+  // Intialize with random weights ( Uniform[0, 1] )
+  weights = (Eigen::ArrayXXd::Random(n_outputs, n_inputs) * 0.5 + 0.5);
+  biases = (Eigen::ArrayXXd::Random(n_outputs, 1) * 0.5 + 0.5);
 }
 
 Layer_Dense::Layer_Dense(const Eigen::MatrixXd &weights, const Eigen::VectorXd &biases)
