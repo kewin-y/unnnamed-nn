@@ -2,8 +2,8 @@
 
 namespace unn
 {
-AdaGrad::AdaGrad(double learning_rate, double epsilon)
-    : learning_rate{learning_rate}, epsilon{epsilon}, iterations{0}
+AdaGrad::AdaGrad(double lr, double epsilon)
+    : lr{lr}, epsilon{epsilon}, iterations{0}
 {
 }
 
@@ -16,9 +16,9 @@ void AdaGrad::update_params(Layer_Dense &layer)
   layer.weights_moment2.array() += (layer.get_d_weights().array() * layer.get_d_weights().array());
   layer.biases_moment2.array() += (layer.get_d_biases().array() * layer.get_d_biases().array());
 
-  Eigen::MatrixXd wcof = -learning_rate * (layer.weights_moment2.array() + epsilon).cwiseSqrt().cwiseInverse();
+  Eigen::MatrixXd wcof = -lr * (layer.weights_moment2.array() + epsilon).cwiseSqrt().cwiseInverse();
 
-  Eigen::MatrixXd bcof = -learning_rate * (layer.biases_moment2.array() + epsilon).cwiseSqrt().cwiseInverse();
+  Eigen::MatrixXd bcof = -lr * (layer.biases_moment2.array() + epsilon).cwiseSqrt().cwiseInverse();
 
   layer.weights.array() += wcof.array() * layer.get_d_weights().array();
   layer.biases.array() += bcof.array() * layer.get_d_biases().array();

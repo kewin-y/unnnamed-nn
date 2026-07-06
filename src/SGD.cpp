@@ -2,8 +2,8 @@
 
 namespace unn
 {
-SGD::SGD(double learning_rate, double decay, double momentum)
-    : starting_learning_rate{learning_rate}, decay{decay}, momentum{momentum}, learning_rate{learning_rate},
+SGD::SGD(double lr, double decay, double momentum)
+    : starting_lr{lr}, decay{decay}, momentum{momentum}, lr{lr},
       iterations{0}
 {
 }
@@ -19,11 +19,11 @@ void SGD::update_params(Layer_Dense &layer)
     // https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf
     Eigen::MatrixXd weights_velocity =
         momentum * layer.weights_moment1.array()
-        - learning_rate * layer.get_d_weights().array();
+        - lr * layer.get_d_weights().array();
 
     Eigen::VectorXd biases_velocity =
        momentum * layer.biases_moment1.array()
-       - learning_rate * layer.get_d_biases().array();
+       - lr * layer.get_d_biases().array();
     // clang-format on
 
     layer.weights.array() += weights_velocity.array();
@@ -33,10 +33,10 @@ void SGD::update_params(Layer_Dense &layer)
     layer.biases_moment1 = std::move(biases_velocity);
 
   } else {
-    layer.biases.array() += -learning_rate * layer.get_d_biases().array();
-    layer.weights.array() += -learning_rate * layer.get_d_weights().array();
+    layer.biases.array() += -lr * layer.get_d_biases().array();
+    layer.weights.array() += -lr * layer.get_d_weights().array();
   }
 }
-void SGD::pre_update() { learning_rate = starting_learning_rate / (1 + decay * iterations); }
+void SGD::pre_update() { lr = starting_lr / (1 + decay * iterations); }
 void SGD::post_update() { iterations++; }
 } // namespace unn
